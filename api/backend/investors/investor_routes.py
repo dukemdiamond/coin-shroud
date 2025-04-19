@@ -25,13 +25,16 @@ def get_investors():
     return investor_response
 
 @investors.route('/investors/<investorID>', methods=['GET'])
-def get_investor():
+def get_investor(investorID):
     current_app.logger.info('GET /investors/<investorID> route')
 
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT investorID, FName, LName, email FROM Investors''')
+    cursor.execute('SELECT investorID, FName, LName, email FROM Investors WHERE investorID = %s', (investorID))
 
     investorData = cursor.fetchall()
+
+    if not investorData:
+        return jsonify({'Error': 'Investor not found'}), 404
 
     investor_response = make_response(jsonify(investorData))
     investor_response.status_code = 200

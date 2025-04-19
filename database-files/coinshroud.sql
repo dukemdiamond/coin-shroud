@@ -57,7 +57,7 @@ CREATE TABLE Portfolio(
 );
 
 CREATE TABLE Transactions(
-    transactionID VARCHAR(36) PRIMARY KEY,
+    transactionID INT AUTOINCREMENT PRIMARY KEY ,
     buy DECIMAL(18,8),
     sell DECIMAL(18,8),
     userID VARCHAR(36),
