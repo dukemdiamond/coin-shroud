@@ -39,12 +39,6 @@ def get_investor(investorID):
     investor_response = make_response(jsonify(investorData))
     investor_response.status_code = 200
     return investor_response
-# CREATE TABLE Investors(
-#     investorID VARCHAR(36) PRIMARY KEY,
-#     FName TEXT NOT NULL,
-#     LName TEXT NOT NULL,
-#     email VARCHAR(100) NOT NULL
-# );
 
 
 @investors.route('/investors/<investorID>', methods = ['PUT'])
@@ -73,8 +67,26 @@ def get_investor_portfolio():
     cursor.execute('''SELECT ''')
 
 @investors.route('/investors/<investorID>', methods=['DELETE'])
-def delete_investor():
-    current_app.logger.info('Delete /investors/<investorID>/portfolio')
+def delete_investor(investor_id):
+    current_app.logger.info('Delete /investors/<investorID> route')
+
+    try:
+        cursor = db.get_db.cursor()
+        cursor.execute('SELECT investorID FROM Investors WHERE investorID = %s', (investor_id,))
+
+        if not cursor.fetchall():
+            return jsonify({'Error': 'could not find investor.'}), 404
+
+        cursor.execute('DELETE FROM Investors WHERE investorID = %s' (investor_id))
+
+        db.get_db().commit()
+        return jsonify({'message': f'Investor {investor_id} succesfully deleted'}), 200
+
+    except Exception as e:
+
+        db.get_db().rollback()
+        current_app.logger.error(f'Error deleting investor: {str(e)}')
+        return jsonify({'error': 'Failed to delete investor'}), 500
 
 
 
