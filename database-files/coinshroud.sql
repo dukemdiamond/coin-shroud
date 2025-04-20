@@ -2,10 +2,10 @@ CREATE DATABASE IF NOT EXISTS coinshroud_platform;
 USE coinshroud_platform;
 
 CREATE TABLE Projects(
-    projectID VARCHAR(36) PRIMARY KEY,
-    FName TEXT NOT NULL,
-    LName TEXT NOT NULL,
+    projectID INT AUTOINCREMENT PRIMARY KEY,
+    name TEXT NOT NULL,
     status ENUM('active', 'pending', 'completed', 'suspended') DEFAULT 'active',
+    price BIGINT,
     quantity BIGINT
 );
 
