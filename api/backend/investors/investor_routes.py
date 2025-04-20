@@ -16,7 +16,7 @@ investors = Blueprint('investors', __name__)
 def get_investors():
     current_app.logger.info('GET /investors route')
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT investorID, FName, LName, email FROM Investors''')
+    cursor.execute('''SELECT investorID, FName, LName, email, agency FROM Investors''')
 
     investorData = cursor.fetchall()
 
@@ -29,7 +29,7 @@ def get_investor(investorID):
     current_app.logger.info('GET /investors/<investorID> route')
 
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT investorID, FName, LName, email FROM Investors WHERE investorID = %s', (investorID))
+    cursor.execute('SELECT investorID, FName, LName, email, agency FROM Investors WHERE investorID = %s', (investorID))
 
     investorData = cursor.fetchall()
 
@@ -49,10 +49,11 @@ def update_investor():
     first = inv_info['FName']
     last = inv_info['LName']
     email = inv_info['email']
+    agency = inv_info['agency']
 
 
-    query = 'UPDATE Investors SET FName = %s, LName = %s, email = %s WHERE investorID = %s'
-    data = (first,last,email, inv_id)
+    query = 'UPDATE Investors SET FName = %s, LName = %s, email = %s, agency = %s WHERE investorID = %s'
+    data = (first,last,email,agency, inv_id)
     cursor = db.get_db().cursor()
     r = cursor.execute(query, data)
     db.get_db().commit()

@@ -11,7 +11,7 @@ education = Blueprint('education', __name__)
 def get_education():
     cursor = db.get_db().cursor()
 
-    cursor.execute('SELECT educationID, information FROM education')
+    cursor.execute('SELECT educationID, information FROM Education')
     data = cursor.fetchall()
     response = make_response(jsonify(data))
     response.status_code = 200

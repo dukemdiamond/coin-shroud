@@ -20,7 +20,8 @@ CREATE TABLE Investors(
     investorID VARCHAR(36) PRIMARY KEY,
     FName TEXT NOT NULL,
     LName TEXT NOT NULL,
-    email VARCHAR(100) NOT NULL
+    email VARCHAR(100) NOT NULL,
+    agency TEXT NOT NULL
 );
 
 CREATE TABLE Average_Persons(
@@ -36,13 +37,6 @@ CREATE TABLE Wallet(
     investorID VARCHAR(36),
     userID VARCHAR(36),
     FOREIGN KEY (investorID) REFERENCES Investors(investorID),
-    FOREIGN KEY (userID) REFERENCES Average_Persons(userID)
-);
-
-CREATE TABLE AveragePersonWallet(
-    walletID VARCHAR(36) PRIMARY KEY,
-    balance FLOAT NOT NULL DEFAULT 0,
-    userID VARCHAR(36),
     FOREIGN KEY (userID) REFERENCES Average_Persons(userID)
 );
 
