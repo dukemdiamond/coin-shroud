@@ -49,7 +49,7 @@ def create_transaction():
         cursor = db.get_db().cursor()
         cursor.execute('''
         INSERT INTO Transactions (buy, sell, userID, investorID, projectID)
-        VALUES (?, ?, ?, ?, ?) ''', (buy_value, sell_value, user_id, investor_id, data['projectID']))
+        VALUES (%s, %s, %s, %s, %s) ''', (buy_value, sell_value, user_id, investor_id, data['projectID']))
 
         db.get_db.commit()
 
