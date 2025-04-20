@@ -93,6 +93,11 @@ CREATE TABLE Regulators(
     FOREIGN KEY (governingID) REFERENCES Governing_Bodies(governingID)
 );
 
+CREATE TABLE Compliance_Rules(
+    c_id INT AUTO_INCREMENT PRIMARY KEY
+    compliance_rules TEXT
+)
+
 CREATE TABLE Compliance_Report(
     reportID VARCHAR(36) PRIMARY KEY,
     isCompliant BOOLEAN DEFAULT TRUE,
