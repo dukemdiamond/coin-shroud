@@ -61,11 +61,19 @@ def update_investor():
 
 # still needs work
 @investors.route('/investors/<investorID>/portfolio', methods=['GET'])
-def get_investor_portfolio():
+def get_investor_portfolio(investorID):
     current_app.logger.info('GET /investors/<investorID>/portfolio route')
 
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT ''')
+    # Get portfolio information
+    cursor.execute('''SELECT portfolioID, value, holdings, investorID FROM Portfolio WHERE investorID = %s''', investorID)
+
+    data = cursor.fetchall()
+
+    r = make_response(jsonify(data))
+    r.status_code = 200
+
+    return r
 
 @investors.route('/investors/<investorID>', methods=['DELETE'])
 def delete_investor(investor_id):

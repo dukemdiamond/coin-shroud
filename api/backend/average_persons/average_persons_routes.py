@@ -53,13 +53,20 @@ def update_user():
     db.get_db().commit()
     return 'user updated!'
 
-# still needs work
 @average_persons.route('/average_persons/<userID>/portfolio', methods=['GET'])
-def get_user_portfolio():
+def get_user_portfolio(userID):
     current_app.logger.info('GET /average_persons/<userID>/portfolio route')
 
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT ''')
+    # Get portfolio information
+    cursor.execute('''SELECT portfolioID, value, holdings, userID FROM Portfolio WHERE userID = %s''', userID)
+
+    data = cursor.fetchall()
+
+    r = make_response(jsonify(data))
+    r.status_code = 200
+
+    return r
 
 @average_persons.route('/average_persons/<userID>', methods=['DELETE'])
 def delete_user(userID):
