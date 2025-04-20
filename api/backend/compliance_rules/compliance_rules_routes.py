@@ -8,11 +8,11 @@ from backend.db_connection import db
 compliance_rules = Blueprint('compliance', __name__)
 
 @compliance_rules.route('/compliance_rules', methods=['GET'])
-def get_compliance_rules:
+def get_compliance_rules():
     current_app.logger.info('GET /compliance_rules route')
     cursor = db.get_db().cursor()
 
-    cursor.execute('SELECT compliance_rules FROM compliance_rules')
+    cursor.execute('SELECT c_id, compliance_rules FROM compliance_rules')
 
     data = cursor.fetchall()
 

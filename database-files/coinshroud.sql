@@ -95,7 +95,7 @@ CREATE TABLE Regulators(
 
 CREATE TABLE Compliance_Rules(
     c_id INT AUTO_INCREMENT PRIMARY KEY
-    compliance_rules TEXT
+    compliance_rules TEXT NOT NULL
 )
 
 CREATE TABLE Compliance_Report(
