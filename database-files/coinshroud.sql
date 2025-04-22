@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS coinshroud_platform;
 USE coinshroud_platform;
 
 CREATE TABLE Projects(
-    projectID INT AUTOINCREMENT PRIMARY KEY,
+    projectID INT AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL,
     status ENUM('active', 'pending', 'completed', 'suspended') DEFAULT 'active',
     price BIGINT,
@@ -88,9 +88,9 @@ CREATE TABLE Regulators(
 );
 
 CREATE TABLE Compliance_Rules(
-    c_id INT AUTO_INCREMENT PRIMARY KEY
+    c_id INT AUTO_INCREMENT PRIMARY KEY,
     compliance_rules TEXT NOT NULL
-)
+);
 
 CREATE TABLE Compliance_Report(
     reportID VARCHAR(36) PRIMARY KEY,
