@@ -63,7 +63,7 @@ def create_transaction():
     except Exception as e:
         # Error Wont be committed to the DB
         db.get_db.rollback()
-        return jsonify({"Error: transaction not created."})
+        return jsonify({'error': 'Transaction not successful'})
 
 
 @transactions.route('/transactions/{transactionID}', methods=['GET'])
