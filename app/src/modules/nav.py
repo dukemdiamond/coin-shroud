@@ -3,7 +3,7 @@
 # This file has function to add certain functionality to the left side bar of the app
 
 import streamlit as st
-
+import requests
 
 #### ------------------------ General ------------------------
 def HomeNav():
@@ -102,3 +102,31 @@ def SideBarLinks(show_home=False):
             del st.session_state["role"]
             del st.session_state["authenticated"]
             st.switch_page("Home.py")
+
+API_URL = "http://localhost:8502"
+# Function to make API requests
+def api_request(endpoint, method="GET", data=None):
+    url = f"{API_URL}{endpoint}"
+
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    try:
+        if method == "GET":
+            response = requests.get(url, headers=headers)
+        elif method == "POST":
+            response = requests.post(url, headers=headers, data=json.dumps(data))
+        elif method == "PUT":
+            response = requests.put(url, headers=headers, data=json.dumps(data))
+        elif method == "DELETE":
+            response = requests.delete(url, headers=headers)
+
+        if response.status_code in [200, 201]:
+            return response.json()
+        else:
+            st.error(f"API Error: {response.status_code} - {response.text}")
+            return None
+    except Exception as e:
+        st.error(f"Connection Error: {str(e)}")
+        return None

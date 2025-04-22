@@ -54,7 +54,6 @@ def update_investor():
     db.get_db().commit()
     return 'investor updated!'
 
-# still needs work
 @investors.route('/investors/<investorID>/portfolio', methods=['GET'])
 def get_investor_portfolio(investorID):
     current_app.logger.info('GET /investors/<investorID>/portfolio route')

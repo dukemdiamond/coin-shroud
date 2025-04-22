@@ -3,10 +3,9 @@ import logging
 logger = logging.getLogger(__name__)
 import pandas as pd
 import streamlit as st
-import numpy as np
-import requests
-import json
 from modules.nav import SideBarLinks
+from modules.nav import api_request
+
 
 # Call the SideBarLinks from the nav module in the modules directory
 SideBarLinks()
@@ -17,38 +16,9 @@ st.header('Wallet')
 # You can access the session state to make a more customized/personalized app experience
 st.write(f"### Hi, {st.session_state['first_name']}.")
 
-API_URL = "http://localhost:8502"
 
 user_id = st.session_state.get('user_id', '1')  # Default to 1 if not set
 user_type = st.session_state.get('user_type', 'investor')  # Default to investor if not set
-
-
-# Function to make API requests
-def api_request(endpoint, method="GET", data=None):
-    url = f"{API_URL}{endpoint}"
-
-    headers = {
-        "Content-Type": "application/json"
-    }
-
-    try:
-        if method == "GET":
-            response = requests.get(url, headers=headers)
-        elif method == "POST":
-            response = requests.post(url, headers=headers, data=json.dumps(data))
-        elif method == "PUT":
-            response = requests.put(url, headers=headers, data=json.dumps(data))
-        elif method == "DELETE":
-            response = requests.delete(url, headers=headers)
-
-        if response.status_code in [200, 201]:
-            return response.json()
-        else:
-            st.error(f"API Error: {response.status_code} - {response.text}")
-            return None
-    except Exception as e:
-        st.error(f"Connection Error: {str(e)}")
-        return None
 
 
 # Get wallet information
@@ -126,7 +96,6 @@ if wallet_data:
             submitted = st.form_submit_button("Create Wallet")
 
             if submitted:
-                # Generate a new wallet ID (in a production app, this would be handled by the backend)
                 import uuid
 
                 wallet_id = str(uuid.uuid4())
