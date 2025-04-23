@@ -49,7 +49,7 @@ def create_project():
 
         db.get_db().commit()
 
-        return 'Project created successfully!'
+        return jsonify({'message': 'Project created successfully!'}), 200
 
     except Exception as e:
         db.get_db().rollback()
@@ -79,7 +79,7 @@ def update_project(projectID):
     r = cursor.execute(query, data)
     db.get_db().commit()
 
-    return 'Project Updated!'
+    return jsonify({'message': 'Project updated successfully!'}), 200
 
 @projects.route('/<projectID>', methods=['DELETE'])
 def delete_project(projectID):
@@ -87,12 +87,12 @@ def delete_project(projectID):
 
     try:
         cursor = db.get_db.cursor()
-        cursor.execute('SELECT projectID FROM Projects WHERE projectID = %s', projectID)
+        cursor.execute('SELECT projectID FROM Projects WHERE projectID = %s', (projectID))
 
         if not cursor.fetchall():
             return jsonify({'Error': 'Could not find project'}), 404
 
-        cursor.execute('DELETE FROM Projects WHERE projectID = %s', projectID)
+        cursor.execute('DELETE FROM Projects WHERE projectID = %s', (projectID))
 
         db.get_db().commit()
         return jsonify({'message': f'Project {projectID} successfully deleted'}), 200

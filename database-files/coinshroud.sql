@@ -130,6 +130,30 @@ CREATE TABLE AvgInvests(
     FOREIGN KEY (userID) REFERENCES Average_Persons(userID),
     FOREIGN KEY(projectID) REFERENCES Projects(projectID)
 );
+
+
+NSERT INTO compliance_rules (compliance_rules) VALUES
+    ('All cryptocurrency projects must implement KYC (Know Your Customer) verification for users.'),
+    ('Smart contracts must undergo third-party security audits before deployment.'),
+    ('Projects must maintain a minimum of 30% reserve funds in cold storage.'),
+    ('Regular financial disclosures must be published quarterly.'),
+    ('User funds must be segregated from operational capital.'),
+    ('Privacy tokens must implement regulatory compliance features.'),
+    ('Projects must have clear token distribution schedules published.'),
+    ('DeFi platforms must implement circuit breakers for extreme market conditions.'),
+    ('Projects must have documented governance procedures.'),
+    ('Anti-money laundering procedures must be implemented and documented.'),
+    ('Regular penetration testing must be conducted on all platform security.'),
+    ('Insurance funds must be established to protect against hacks or exploits.'),
+    ('Clear terms of service must be provided to all users.'),
+    ('Oracles used for price feeds must come from multiple independent sources.'),
+    ('Projects must have a documented incident response plan.'),
+    ('All promotional material must include risk disclosures.'),
+    ('Code repositories must be publicly accessible when possible.'),
+    ('Projects must maintain compliance with local regulations in served markets.'),
+    ('Clear withdrawal procedures must be documented and followed.'),
+    ('Token economics models must be transparent and documented.');
+
 -- Insert Projects
 INSERT INTO Projects (name, status, price, quantity) VALUES
     ('BitcoinMax', 'active', 47000000000, 5000),
