@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 from modules.nav import SideBarLinks
 from modules.nav import api_request
+import datetime
 
 
 # Call the SideBarLinks from the nav module in the modules directory
@@ -44,9 +45,11 @@ with st.form("withdrawal_form"):
         if amount > wallet_balance:
             st.error(f"Insufficient balance. Your wallet has ${wallet_balance:.2f}")
         else:
+            today_str = datetime.date.today().strftime('%Y-%m-%d')
             payload = {
                 "amount": amount,
                 "status": "pending",
+                "date": today_str,
                 f"{'investorID' if user_type == 'investor' else 'userID'}": user_id
             }
             response = api_request("/withdrawals", method="POST", data=payload)
