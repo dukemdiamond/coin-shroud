@@ -17,7 +17,7 @@ st.write(f"### Hi, {st.session_state['first_name']}.")
 
 
 user_id = st.session_state.get('user_id', '1')  # Default to 1 if not set
-user_type = st.session_state.get('user_type', 'investor')  # Default to investor if not set
+user_type = st.session_state.get('role', 'investor')  # Default to investor if not set
 
 project_data = api_request("/projects")
 
@@ -47,3 +47,4 @@ if projectID:
             st.metric("Quantity", specific_project_data.get('quantity'))
     else:
         st.error(f"No project found with ID: {projectID}")
+

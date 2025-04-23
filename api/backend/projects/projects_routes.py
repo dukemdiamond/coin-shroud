@@ -38,7 +38,6 @@ def create_project():
         current_app.logger.info('POST /projects/ route')
 
         p_info = request.json
-        p_id = p_info['projectID']
         name = p_info['name']
         status = p_info['status']
         price = p_info['price']

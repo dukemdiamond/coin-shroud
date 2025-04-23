@@ -77,7 +77,7 @@ if st.button('Act as a Governing Body',
             type = 'primary',
             use_container_width=True):
     st.session_state['authenticated'] = True
-    st.session_state['role'] = ''
+    st.session_state['role'] = 'governing_body'
 
 
 
