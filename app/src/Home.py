@@ -63,7 +63,15 @@ if st.button('Act as Duke, an Average Person',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'average_person'
     st.session_state['first_name'] = 'Duke'
-    st.switch_page('pages/10_USAID_Worker_Home.py')
+    st.switch_page('pages/10_Average_Person_Home.py')
+
+if st.button('Act as a Governing Body',
+            type = 'primary',
+            use_container_width=True):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'governing_body'
+    st.switch_page('pages/11_Governing_Body_Home.py')
+
 
 if st.button('Act as Alex, a CoinShroud Developer',
             type = 'primary', 
@@ -71,13 +79,9 @@ if st.button('Act as Alex, a CoinShroud Developer',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'developer'
     st.session_state['first_name'] = 'Alex'
-    st.switch_page('pages/20_Admin_Home.py')
+    st.switch_page('pages/20_Developer_Home.py')
 
-if st.button('Act as a Governing Body',
-            type = 'primary',
-            use_container_width=True):
-    st.session_state['authenticated'] = True
-    st.session_state['role'] = 'governing_body'
+
 
 
 
