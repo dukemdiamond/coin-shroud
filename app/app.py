@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # Define API base URL
-API_URL = "http://localhost:5000"  # Adjust this to your Flask API's address
+API_URL = "http://localhost:8502"  # Adjust this to your Flask API's address
 
 
 def main():

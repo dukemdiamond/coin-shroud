@@ -14,6 +14,8 @@ services:
     volumes: ["./api:/apicode"]
     ports:
       - 4000:4000
+    environment:
+      - coinshroud=coinshroud_platform
 
   db:
     env_file:
