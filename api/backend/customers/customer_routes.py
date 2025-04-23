@@ -49,6 +49,7 @@ def update_customer():
     cursor = db.get_db().cursor()
     r = cursor.execute(query, data)
     db.get_db().commit()
+    r.status_code = 200
     return 'customer updated!'
 
 #------------------------------------------------------------

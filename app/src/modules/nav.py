@@ -30,7 +30,7 @@ def ProjectsNav():
 
 
 def TransactionsNav():
-    st.sidebar.page_link("pages/Education.py", label="Education", icon="📕")
+    st.sidebar.page_link("pages/05_Education.py", label="Education", icon="📕")
 
 
 def WithdrawalsNav():

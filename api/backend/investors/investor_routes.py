@@ -51,6 +51,7 @@ def update_investor():
     data = (first,last,email,agency, inv_id)
     cursor = db.get_db().cursor()
     r = cursor.execute(query, data)
+    r.status_code = 200
     db.get_db().commit()
     return 'investor updated!'
 
