@@ -56,7 +56,7 @@ with st.form("update_form"):
             "price": price,
             "quantity": quantity,
         }
-        response = api_request("/projects", method="POST", data=updated_load)
+        response = api_request(f"/projects/{projectID}", method="PUT", data=updated_load)
         if isinstance(response, dict) and response.get("error"):
             st.error(response["error"])
         else:

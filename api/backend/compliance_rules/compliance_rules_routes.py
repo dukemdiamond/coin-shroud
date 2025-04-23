@@ -25,7 +25,7 @@ def update_compliance_rules():
     current_app.logger.info('PUT /compliance_rules route')
 
     cursor = db.get_db().cursor()
-    info = request.json 
+    info = request.json
     rules = info['compliance_rules']
 
     r = cursor.execute('UPDATE Compliance_Rules SET compliance_rules = %s', rules)

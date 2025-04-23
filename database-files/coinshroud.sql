@@ -87,7 +87,7 @@ CREATE TABLE Regulators(
     FOREIGN KEY (governingID) REFERENCES Governing_Bodies(governingID)
 );
 
-CREATE TABLE Compliance_Rules(
+CREATE TABLE IF NOT EXISTS compliance_rules(
     c_id INT AUTO_INCREMENT PRIMARY KEY,
     compliance_rules TEXT NOT NULL
 );

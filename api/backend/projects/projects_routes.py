@@ -45,7 +45,7 @@ def create_project():
 
         cursor = db.get_db().cursor()
         cursor.execute('INSERT INTO Projects (name, status, price, quantity)'
-                 'VALUES (%s, %s, %s, %s)', name, status, price, quantity)
+                 'VALUES (%s, %s, %s, %s)', (name, status, price, quantity))
 
         db.get_db.commit()
 
@@ -63,18 +63,17 @@ def create_project():
 
 
 @projects.route('/<projectID>', methods=['PUT'])
-def update_project():
+def update_project(projectID):
     current_app.logger.info('PUT /projects/<projectID> route')
 
     p_info = request.json
-    p_id = p_info['projectID']
     name = p_info['name']
     status = p_info['status']
     price = p_info['price']
     quantity = p_info['quantity']
 
     query = 'UPDATE Projects SET name = %s, status = %s, price = %s, quantity = %s WHERE projectID = %s'
-    data = (name,status,price,quantity, p_id)
+    data = (name,status,price,quantity, projectID)
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query, data)
