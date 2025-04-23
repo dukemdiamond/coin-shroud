@@ -39,6 +39,11 @@ def WithdrawalsNav():
         "pages/06_Withdrawals.py", label="Withdrawals", icon="📉"
     )
 
+def PortfolioNav():
+    st.sidebar.page_link(
+        "pages/02_Portfolio.py", label="Portfolio", icon="💼"
+    )
+
 def AveragePersonNav():
     st.sidebar.page_link(
         "pages/10_Average_Person_Home.py", label="Average Person Home", icon="🚹"
@@ -96,29 +101,32 @@ def SideBarLinks(show_home=False):
     # Show the other page navigators depending on the users' role.
     if st.session_state["authenticated"]:
 
-        # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
+        # if investor show
         if st.session_state["role"] == "investor":
             InvestorNav()
             WalletNav()
             ProjectsNav()
             TransactionsNav()
             WithdrawalsNav()
+            PortfolioNav()
 
-        # If the user role is usaid worker, show the Api Testing page
+        # If the user role is avg person, show the Api Testing page
         if st.session_state["role"] == "average_person":
             AveragePersonNav()
             WalletNav()
             ProjectsNav()
             TransactionsNav()
             WithdrawalsNav()
+            PortfolioNav()
 
-        # If the user is an administrator, give them access to the administrator pages
+        # If the user is an gov body, give them access to the gov body pages
         if st.session_state["role"] == "governing_body":
             GoverningBodyNav()
             ProjectsNav()
             ComplianceNav()
             ComplianceRulesNav()
 
+        # if dev
         if st.session_state["role"] == "developer":
             DeveloperNav()
             ProjectsNav()
