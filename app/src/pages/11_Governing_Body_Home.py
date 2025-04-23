@@ -19,7 +19,7 @@ if st.button('View Projects in the Market',
              use_container_width=True):
   st.switch_page('pages/03_Projects.py')
 
-if st.button('View, Create, and Update Compliance Reports',
+if st.button('View and Update Compliance Reports',
              type='primary',
              use_container_width=True):
   st.switch_page('pages/12_Compliance.py')
