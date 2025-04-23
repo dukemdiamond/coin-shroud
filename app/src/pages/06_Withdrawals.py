@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 from modules.nav import SideBarLinks
 from modules.nav import api_request
+import datetime
 
 
 # Call the SideBarLinks from the nav module in the modules directory
@@ -34,21 +35,29 @@ else:
     st.info("No withdrawal data found.")
 
 wallet_data = api_request("/wallet")
-wallet_balance = wallet_data['balance'] if wallet_data else 0
+wallet_balance = wallet_data[0].get('balance', 0) if wallet_data else 0
 
 st.subheader("Request a withdrawal")
 with st.form("withdrawal_form"):
-    amount = st.number_input("Enter withdrawal amount", minvalue=0.1, format = "%.2f")
+    amount = st.number_input("Enter withdrawal amount", min_value=0.1, format = "%.2f")
     submitted = st.form_submit_button("Submit")
     if submitted:
         if amount > wallet_balance:
             st.error(f"Insufficient balance. Your wallet has ${wallet_balance:.2f}")
         else:
+            today_str = datetime.date.today().strftime('%Y-%m-%d')
             payload = {
                 "amount": amount,
                 "status": "pending",
-                f"{'investorID' if user_type == 'investor' else 'userID'}": user_id
+                "date": today_str,
             }
+
+            # Investor vs. Average Person Handling
+            if user_type == 'investor':
+                payload["investorID"] = user_id
+            else:
+                payload["userID"] = user_id
+
             response = api_request("/withdrawals", method="POST", data=payload)
 
             if "error" in response:

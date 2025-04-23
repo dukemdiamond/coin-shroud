@@ -87,7 +87,7 @@ CREATE TABLE Regulators(
     FOREIGN KEY (governingID) REFERENCES Governing_Bodies(governingID)
 );
 
-CREATE TABLE Compliance_Rules(
+CREATE TABLE IF NOT EXISTS compliance_rules(
     c_id INT AUTO_INCREMENT PRIMARY KEY,
     compliance_rules TEXT NOT NULL
 );
@@ -130,6 +130,73 @@ CREATE TABLE AvgInvests(
     FOREIGN KEY (userID) REFERENCES Average_Persons(userID),
     FOREIGN KEY(projectID) REFERENCES Projects(projectID)
 );
+
+
+INSERT INTO compliance_rules (compliance_rules) VALUES
+    ('All cryptocurrency projects must implement KYC (Know Your Customer) verification for users.'),
+    ('Smart contracts must undergo third-party security audits before deployment.'),
+    ('Projects must maintain a minimum of 30% reserve funds in cold storage.'),
+    ('Regular financial disclosures must be published quarterly.'),
+    ('User funds must be segregated from operational capital.'),
+    ('Privacy tokens must implement regulatory compliance features.'),
+    ('Projects must have clear token distribution schedules published.'),
+    ('DeFi platforms must implement circuit breakers for extreme market conditions.'),
+    ('Projects must have documented governance procedures.'),
+    ('Anti-money laundering procedures must be implemented and documented.'),
+    ('Regular penetration testing must be conducted on all platform security.'),
+    ('Insurance funds must be established to protect against hacks or exploits.'),
+    ('Clear terms of service must be provided to all users.'),
+    ('Oracles used for price feeds must come from multiple independent sources.'),
+    ('Projects must have a documented incident response plan.'),
+    ('All promotional material must include risk disclosures.'),
+    ('Code repositories must be publicly accessible when possible.'),
+    ('Projects must maintain compliance with local regulations in served markets.'),
+    ('Clear withdrawal procedures must be documented and followed.'),
+    ('Token economics models must be transparent and documented.');
+
+-- Insert Projects
+INSERT INTO Projects (name, status, price, quantity) VALUES
+    ('BitcoinMax', 'active', 47000000000, 5000),
+    ('EthereumPro', 'active', 3200000000, 25000),
+    ('SolanaSphere', 'active', 120000000, 150000),
+    ('CardanoEdge', 'pending', 55000000, 75000),
+    ('PolkadotMatrix', 'active', 15000000, 200000),
+    ('RippleWave', 'completed', 80000000, 450000),
+    ('DogecoinRocket', 'active', 12000000, 850000),
+    ('ChainlinkNode', 'pending', 22000000, 65000),
+    ('AvalancheFlow', 'active', 35000000, 38000),
+    ('AlgorandSmart', 'completed', 40000000, 120000),
+    ('TezosToken', 'active', 8000000, 220000),
+    ('StellarLumens', 'suspended', 32000000, 190000),
+    ('MoneroPrivate', 'active', 160000000, 28000),
+    ('CosmosCentral', 'pending', 18000000, 95000),
+    ('Neo3Digital', 'active', 65000000, 42000),
+    ('VeChainSupply', 'completed', 10000000, 320000),
+    ('FilecoinStorage', 'active', 48000000, 56000),
+    ('DecentralandMeta', 'active', 6000000, 580000),
+    ('TheGraphIndex', 'pending', 14000000, 250000),
+    ('ArweaveStore', 'active', 28000000, 78000),
+    ('ElrondNetwork', 'suspended', 75000000, 34000),
+    ('HederaHash', 'active', 30000000, 145000),
+    ('IoTeXChain', 'active', 9000000, 270000),
+    ('OntologyTrust', 'pending', 17000000, 180000),
+    ('ZilliqaShard', 'active', 12000000, 310000),
+    ('NanoFast', 'completed', 5000000, 425000),
+    ('HeliumHNT', 'active', 25000000, 85000),
+    ('ThorchainSwap', 'active', 58000000, 46000),
+    ('WavesProtocol', 'pending', 20000000, 135000),
+    ('DashPay', 'active', 110000000, 22000),
+    ('ZcashPrivacy', 'active', 140000000, 18000),
+    ('EnjinNFT', 'completed', 19000000, 290000),
+    ('IconNetwork', 'active', 11000000, 350000),
+    ('QtumSmart', 'suspended', 15000000, 210000),
+    ('DigiByteTech', 'active', 3000000, 720000),
+    ('SiacoinCloud', 'pending', 4000000, 850000),
+    ('RevainReview', 'active', 7000000, 390000),
+    ('StatusMobile', 'completed', 13000000, 240000),
+    ('LiskPlatform', 'active', 16000000, 175000),
+    ('BancorExchange', 'active', 21000000, 130000);
+
 
 INSERT INTO Investors (FName, LName, email, agency) VALUES
     ('Danielle', 'Johnson', 'jeffreydoyle@hotmail.com', 'Mcclain, Miller and Henderson'),
@@ -265,7 +332,7 @@ INSERT INTO Developers (FName, LName, email) VALUES
 -- Using the auto-increment for walletID and referencing numeric investorID and userID
 INSERT INTO Wallet (balance, investorID, userID) VALUES
     (7977.31, 1, NULL),
-    (3685.2, NULL, 2),
+    (3685.2, NULL, 1),
     (1939.33, 3, NULL),
     (5703.63, NULL, 4),
     (1692.17, 5, NULL),
@@ -308,7 +375,7 @@ INSERT INTO Wallet (balance, investorID, userID) VALUES
 -- Insert Portfolio
 INSERT INTO Portfolio (value, holdings, investorID, userID) VALUES
     (8166.87, 'BTC,ETH,USDT', 1, NULL),
-    (4444.15, 'BTC,SOL,ADA', NULL, 2),
+    (4444.15, 'BTC,SOL,ADA', NULL, 1),
     (14216.96, 'BTC,ETH,USDT', 3, NULL),
     (20452.84, 'BTC,SOL,ADA', NULL, 4),
     (2315.37, 'ETH,DOGE', 5, NULL),

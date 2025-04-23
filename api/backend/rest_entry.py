@@ -36,7 +36,7 @@ def create_app():
     app.config['MYSQL_DATABASE_PASSWORD'] = os.getenv('MYSQL_ROOT_PASSWORD').strip()
     app.config['MYSQL_DATABASE_HOST'] = os.getenv('DB_HOST').strip()
     app.config['MYSQL_DATABASE_PORT'] = int(os.getenv('DB_PORT').strip())
-    app.config['MYSQL_DATABASE_DB'] = os.getenv('coinshroud').strip()  # Change this to your DB name
+    app.config['MYSQL_DATABASE_DB'] = os.getenv('DB_NAME', '').strip()
 
     # Initialize the database object with the settings above. 
     app.logger.info('current_app(): starting the database connection')
@@ -49,7 +49,7 @@ def create_app():
     app.register_blueprint(average_persons, url_prefix='/average_persons')
     app.register_blueprint(products, url_prefix='/products')
     app.register_blueprint(compliance, url_prefix='/compliance')
-    app.register_blueprint(compliance_rules, url_prefix='/rules')
+    app.register_blueprint(compliance_rules, url_prefix='/compliance_rules')
     app.register_blueprint(education, url_prefix='/education')
     app.register_blueprint(investors, url_prefix='/investors')
     app.register_blueprint(projects, url_prefix='/projects')

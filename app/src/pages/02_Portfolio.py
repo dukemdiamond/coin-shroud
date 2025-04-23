@@ -21,26 +21,26 @@ user_type = st.session_state.get('role', 'investor')  # Default to investor if n
 
 if user_type == 'investor':
     portfolio_data = api_request(f"/investors/{user_id}/portfolio")
-    if portfolio_data:
+    if isinstance(portfolio_data, list) and portfolio_data:
+        portfolio = portfolio_data[0]
         col1, col2 = st.columns(2)
         with col1:
-            st.metric("Portfolio ID", portfolio_data.get('portfolioID', 'Unknown'))
-            st.metric("Investor ID", portfolio_data.get('investorID'))
-            st.metric("Value", portfolio_data.get('value', 'Unknown'))
-
+            st.metric("Portfolio ID", portfolio.get('portfolioID', 'Unknown'))
+            st.metric("Investor ID", portfolio.get('investorID'))
+            st.metric("Value", portfolio.get('value', 'Unknown'))
         with col2:
-            st.metric("Holdings", portfolio_data.get('holdings', 'No Holdings'))
+            st.metric("Holdings", portfolio.get('holdings', 'No Holdings'))
 else:
     portfolio_data = api_request(f"/average_persons/{user_id}/portfolio")
-    if portfolio_data:
+    if isinstance(portfolio_data, list) and portfolio_data:
+        portfolio = portfolio_data[0]
         col1, col2 = st.columns(2)
         with col1:
-            st.metric("Portfolio ID", portfolio_data.get('portfolioID', 'Unknown'))
-            st.metric("User ID", portfolio_data.get('userID'))
-            st.metric("Value", portfolio_data.get('value', 'Unknown'))
-
+            st.metric("Portfolio ID", portfolio.get('portfolioID', 'Unknown'))
+            st.metric("User ID", portfolio.get('userID'))
+            st.metric("Value", portfolio.get('value', 'Unknown'))
         with col2:
-            st.metric("Holdings", portfolio_data.get('holdings', 'No Holdings'))
+            st.metric("Holdings", portfolio.get('holdings', 'No Holdings'))
 
 
 

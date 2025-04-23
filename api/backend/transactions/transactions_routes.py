@@ -7,7 +7,7 @@ from backend.db_connection import db
 
 transactions = Blueprint('transactions', __name__)
 
-@transactions.route('/transactions', methods=['GET'])
+@transactions.route('/', methods=['GET'])
 def get_transactions():
 
     current_app.logger.info('GET /transactions route')
@@ -21,7 +21,7 @@ def get_transactions():
     response.status_code = 200
     return response
 
-@transactions.route('/transactions/average_person/<user_id>', methods=['GET'])
+@transactions.route('/average_person/<user_id>', methods=['GET'])
 def get_transactions_by_user(user_id):
     current_app.logger.info('GET /transactions/average_person/<user_id> route')
 
@@ -36,7 +36,7 @@ def get_transactions_by_user(user_id):
     response.status_code = 200
     return response
 
-@transactions.route('/transactions/investor/<investorID>', methods=['GET'])
+@transactions.route('/investor/<investorID>', methods=['GET'])
 def get_transactions_by_investor(investorID):
     current_app.logger.info(f'GET /transactions/user/<investorID>> route')
 
@@ -51,7 +51,7 @@ def get_transactions_by_investor(investorID):
     response.status_code = 200
     return response
 
-@transactions.route('/transactions', methods=['POST'])
+@transactions.route('/', methods=['POST'])
 def create_transaction():
     # Log
     current_app.logger.info('POST /transactions route')
@@ -81,7 +81,7 @@ def create_transaction():
         INSERT INTO Transactions (buy, sell, userID, investorID, projectID)
         VALUES (%s, %s, %s, %s, %s) ''', (buy_value, sell_value, user_id, investor_id, data['projectID']))
 
-        db.get_db.commit()
+        db.get_db().commit()
 
         transactionID = cursor.lastrowid
 
@@ -96,7 +96,7 @@ def create_transaction():
         return jsonify({'error': 'Transaction not successful'})
 
 
-@transactions.route('/transactions/<transactionID>', methods=['GET'])
+@transactions.route('/<transactionID>', methods=['GET'])
 def get_transaction(transaction_id):
     # Log
     current_app.logger.info('GET /transactions/<id> route')

@@ -7,11 +7,11 @@ from backend.db_connection import db
 
 projects = Blueprint('projects', __name__)
 
-@projects.route('/projects', methods=['GET'])
+@projects.route('/', methods=['GET'])
 def get_projects():
 
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT projectID, name, status, quantity FROM Projects''')
+    cursor.execute('''SELECT projectID, name, status, quantity, price FROM Projects''')
     data = cursor.fetchall()
 
     r = make_response(data)
@@ -19,11 +19,11 @@ def get_projects():
 
     return r
 
-@projects.route('/projects/<projectID>', methods=['GET'])
+@projects.route('/<projectID>', methods=['GET'])
 def get_project(projectID):
 
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT projectID, name, status, quantity FROM Projects WHERE projectID = %s', projectID)
+    cursor.execute('SELECT projectID, name, status, quantity, price FROM Projects WHERE projectID = %s', projectID)
     data = cursor.fetchall()
 
     r = make_response(data)
@@ -31,7 +31,7 @@ def get_project(projectID):
 
     return r
 
-@projects.route('/projects', methods=['POST'])
+@projects.route('', methods=['POST'])
 def create_project():
 
     try:
@@ -45,11 +45,11 @@ def create_project():
 
         cursor = db.get_db().cursor()
         cursor.execute('INSERT INTO Projects (name, status, price, quantity)'
-                 'VALUES (%s, %s, %s, %s)', name, status, price, quantity)
+                 'VALUES (%s, %s, %s, %s)', (name, status, price, quantity))
 
-        db.get_db.commit()
+        db.get_db().commit()
 
-        return 'Project created successfully!'
+        return jsonify({'message': 'Project created successfully!'}), 200
 
     except Exception as e:
         db.get_db().rollback()
@@ -62,38 +62,37 @@ def create_project():
 
 
 
-@projects.route('/projects/<projectID>', methods=['PUT'])
-def update_project():
+@projects.route('/<projectID>', methods=['PUT'])
+def update_project(projectID):
     current_app.logger.info('PUT /projects/<projectID> route')
 
     p_info = request.json
-    p_id = p_info['projectID']
     name = p_info['name']
     status = p_info['status']
     price = p_info['price']
     quantity = p_info['quantity']
 
     query = 'UPDATE Projects SET name = %s, status = %s, price = %s, quantity = %s WHERE projectID = %s'
-    data = (name,status,price,quantity, p_id)
+    data = (name,status,price,quantity, projectID)
 
     cursor = db.get_db().cursor()
     r = cursor.execute(query, data)
     db.get_db().commit()
 
-    return 'Project Updated!'
+    return jsonify({'message': 'Project updated successfully!'}), 200
 
-@projects.route('/projects/<projectID>', methods=['DELETE'])
+@projects.route('/<projectID>', methods=['DELETE'])
 def delete_project(projectID):
     current_app.logger.info('DELETE /projects/<projectID> route')
 
     try:
         cursor = db.get_db.cursor()
-        cursor.execute('SELECT projectID FROM Projects WHERE projectID = %s', projectID)
+        cursor.execute('SELECT projectID FROM Projects WHERE projectID = %s', (projectID,))
 
         if not cursor.fetchall():
             return jsonify({'Error': 'Could not find project'}), 404
 
-        cursor.execute('DELETE FROM Projects WHERE projectID = %s', projectID)
+        cursor.execute('DELETE FROM Projects WHERE projectID = %s', (projectID,))
 
         db.get_db().commit()
         return jsonify({'message': f'Project {projectID} successfully deleted'}), 200

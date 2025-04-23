@@ -70,6 +70,7 @@ if st.button('Act as a Governing Body',
             use_container_width=True):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'governing_body'
+    st.session_state['first_name'] = 'Governing Body'
     st.switch_page('pages/11_Governing_Body_Home.py')
 
 

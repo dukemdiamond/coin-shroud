@@ -4,6 +4,7 @@
 
 import streamlit as st
 import requests
+import json
 
 #### ------------------------ General ------------------------
 def HomeNav():
@@ -30,12 +31,19 @@ def ProjectsNav():
 
 
 def TransactionsNav():
-    st.sidebar.page_link("pages/Education.py", label="Education", icon="📕")
+    st.sidebar.page_link("pages/04_Transactions.py", label="Transactions", icon="💎")
 
+def EducationNav():
+    st.sidebar.page_link("pages/05_Education.py", label="Education", icon="📕")
 
 def WithdrawalsNav():
     st.sidebar.page_link(
         "pages/06_Withdrawals.py", label="Withdrawals", icon="📉"
+    )
+
+def PortfolioNav():
+    st.sidebar.page_link(
+        "pages/02_Portfolio.py", label="Portfolio", icon="💼"
     )
 
 def AveragePersonNav():
@@ -46,7 +54,7 @@ def AveragePersonNav():
 ## Governing Body
 def GoverningBodyNav():
     st.sidebar.page_link(
-        "pages/11_Governing_Body.py", label="Governing Body Home", icon="👨‍⚖️"
+        "pages/11_Governing_Body_Home.py", label="Governing Body Home", icon="👨‍⚖️"
     )
 
 def ComplianceNav():
@@ -81,7 +89,7 @@ def SideBarLinks(show_home=False):
     """
 
     # add a logo to the sidebar always
-    st.sidebar.image("assets/logo.png", width=150)
+    st.sidebar.image("assets/csd.png", width=3000)
 
     # If there is no logged in user, redirect to the Home (Landing) page
     if "authenticated" not in st.session_state:
@@ -95,29 +103,34 @@ def SideBarLinks(show_home=False):
     # Show the other page navigators depending on the users' role.
     if st.session_state["authenticated"]:
 
-        # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
+        # if investor show
         if st.session_state["role"] == "investor":
             InvestorNav()
             WalletNav()
             ProjectsNav()
             TransactionsNav()
             WithdrawalsNav()
+            PortfolioNav()
+            EducationNav()
 
-        # If the user role is usaid worker, show the Api Testing page
+        # If the user role is avg person, show the Api Testing page
         if st.session_state["role"] == "average_person":
             AveragePersonNav()
             WalletNav()
             ProjectsNav()
             TransactionsNav()
             WithdrawalsNav()
+            PortfolioNav()
+            EducationNav()
 
-        # If the user is an administrator, give them access to the administrator pages
+        # If the user is an gov body, give them access to the gov body pages
         if st.session_state["role"] == "governing_body":
             GoverningBodyNav()
             ProjectsNav()
             ComplianceNav()
             ComplianceRulesNav()
 
+        # if dev
         if st.session_state["role"] == "developer":
             DeveloperNav()
             ProjectsNav()
@@ -136,7 +149,7 @@ def SideBarLinks(show_home=False):
             del st.session_state["authenticated"]
             st.switch_page("Home.py")
 
-API_URL = "http://localhost:8502"
+API_URL = "http://web-api:4000"
 # Function to make API requests
 def api_request(endpoint, method="GET", data=None):
     url = f"{API_URL}{endpoint}"

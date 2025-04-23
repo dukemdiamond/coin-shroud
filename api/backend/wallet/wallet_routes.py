@@ -9,7 +9,7 @@ wallet = Blueprint('wallet', __name__)
 
 # since wallet is specific to client side, do not need to query by specific investorID etc
 
-@wallet.route('/wallet', methods=['GET'])
+@wallet.route('/', methods=['GET'])
 def get_wallet():
     current_app.logger.info('GET /wallet route')
 
@@ -21,7 +21,7 @@ def get_wallet():
 
     return response
 
-@wallet.route('/wallet', methods=['POST'])
+@wallet.route('/', methods=['POST'])
 def create_wallet():
     try:
         data = request.json

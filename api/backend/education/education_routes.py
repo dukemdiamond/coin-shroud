@@ -7,7 +7,7 @@ from backend.db_connection import db
 
 education = Blueprint('education', __name__)
 
-@education.route('/education', methods=['GET'])
+@education.route('/', methods=['GET'])
 def get_education():
     cursor = db.get_db().cursor()
 

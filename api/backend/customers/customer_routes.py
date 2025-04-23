@@ -18,7 +18,7 @@ customers = Blueprint('customers', __name__)
 
 #------------------------------------------------------------
 # Get all customers from the system
-@customers.route('/customers', methods=['GET'])
+@customers.route('/', methods=['GET'])
 def get_customers():
 
     cursor = db.get_db().cursor()
@@ -35,7 +35,7 @@ def get_customers():
 #------------------------------------------------------------
 # Update customer info for customer with particular userID
 #   Notice the manner of constructing the query.
-@customers.route('/customers', methods=['PUT'])
+@customers.route('/', methods=['PUT'])
 def update_customer():
     current_app.logger.info('PUT /customers route')
     cust_info = request.json
@@ -49,12 +49,13 @@ def update_customer():
     cursor = db.get_db().cursor()
     r = cursor.execute(query, data)
     db.get_db().commit()
+    r.status_code = 200
     return 'customer updated!'
 
 #------------------------------------------------------------
 # Get customer detail for customer with particular userID
 #   Notice the manner of constructing the query. 
-@customers.route('/customers/<userID>', methods=['GET'])
+@customers.route('/<userID>', methods=['GET'])
 def get_customer(userID):
     current_app.logger.info('GET /customers/<userID> route')
     cursor = db.get_db().cursor()
@@ -66,18 +67,3 @@ def get_customer(userID):
     the_response.status_code = 200
     return the_response
 
-#------------------------------------------------------------
-# Makes use of the very simple ML model in to predict a value
-# and returns it to the user
-@customers.route('/prediction/<var01>/<var02>', methods=['GET'])
-def predict_value(var01, var02):
-    current_app.logger.info(f'var01 = {var01}')
-    current_app.logger.info(f'var02 = {var02}')
-
-    returnVal = predict(var01, var02)
-    return_dict = {'result': returnVal}
-
-    the_response = make_response(jsonify(return_dict))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
