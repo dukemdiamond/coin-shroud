@@ -49,7 +49,7 @@ def create_app():
     app.register_blueprint(average_persons, url_prefix='/average_persons')
     app.register_blueprint(products, url_prefix='/products')
     app.register_blueprint(compliance, url_prefix='/compliance')
-    app.register_blueprint(compliance_rules, url_prefix='/rules')
+    app.register_blueprint(compliance_rules, url_prefix='/compliance_rules')
     app.register_blueprint(education, url_prefix='/education')
     app.register_blueprint(investors, url_prefix='/investors')
     app.register_blueprint(projects, url_prefix='/projects')

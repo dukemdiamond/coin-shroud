@@ -22,7 +22,7 @@ if st.button('View Projects in the Market',
 if st.button('Create, Update, or Delete Projects',
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/02_Portfolio.py')
+  st.switch_page('pages/21_Developer_Projects.py')
 
 if st.button('View Compliance Reports',
              type='primary',

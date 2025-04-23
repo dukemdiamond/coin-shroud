@@ -28,9 +28,9 @@ wallet_data = api_request("/wallet")
 if wallet_data:
     # Find the user's wallet based on user type
     if user_type == 'investor':
-        user_wallet = next((w for w in wallet_data if w.get('investorID') == user_id), None)
+        user_wallet = next((w for w in wallet_data if str(w.get('investorID')) == str(user_id)), None)
     else:  # average person
-        user_wallet = next((w for w in wallet_data if w.get('userID') == user_id), None)
+        user_wallet = next((w for w in wallet_data if str(w.get('userID')) == str(user_id)), None)
 
     if user_wallet:
         # Create two columns for layout
@@ -48,8 +48,7 @@ if wallet_data:
                 submitted = st.form_submit_button("Add Funds")
 
                 if submitted:
-                    # Since there's no specific deposit endpoint, we would need to update the wallet
-                    # In a real app, you would implement a proper endpoint for this
+
                     st.success(f"Successfully added ${amount:.2f} to your wallet!")
                     st.rerun()
 

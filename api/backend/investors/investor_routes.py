@@ -7,7 +7,7 @@ from backend.db_connection import db
 
 investors = Blueprint('investors', __name__)
 
-@investors.route('/investors', methods=['GET'])
+@investors.route('/', methods=['GET'])
 def get_investors():
     current_app.logger.info('GET /investors route')
     cursor = db.get_db().cursor()
@@ -19,7 +19,7 @@ def get_investors():
     investor_response.status_code = 200
     return investor_response
 
-@investors.route('/investors/<investorID>', methods=['GET'])
+@investors.route('/<investorID>', methods=['GET'])
 def get_investor(investorID):
     current_app.logger.info('GET /investors/<investorID> route')
 
@@ -36,7 +36,7 @@ def get_investor(investorID):
     return investor_response
 
 
-@investors.route('/investors/<investorID>', methods = ['PUT'])
+@investors.route('/<investorID>', methods = ['PUT'])
 def update_investor():
     current_app.logger.info('PUT /investors/<investorID> route')
     inv_info = request.json
@@ -55,7 +55,7 @@ def update_investor():
     db.get_db().commit()
     return 'investor updated!'
 
-@investors.route('/investors/<investorID>/portfolio', methods=['GET'])
+@investors.route('/<investorID>/portfolio', methods=['GET'])
 def get_investor_portfolio(investorID):
     current_app.logger.info('GET /investors/<investorID>/portfolio route')
 
@@ -70,7 +70,7 @@ def get_investor_portfolio(investorID):
 
     return r
 
-@investors.route('/investors/<investorID>', methods=['DELETE'])
+@investors.route('/<investorID>', methods=['DELETE'])
 def delete_investor(investor_id):
     current_app.logger.info('Delete /investors/<investorID> route')
 

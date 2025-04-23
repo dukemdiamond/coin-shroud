@@ -7,7 +7,7 @@ from backend.db_connection import db
 
 average_persons = Blueprint('average_persons', __name__)
 
-@average_persons.route('/average_persons', methods=['GET'])
+@average_persons.route('/', methods=['GET'])
 def get_users():
     current_app.logger.info('GET /average_persons route')
     cursor = db.get_db().cursor()
@@ -19,7 +19,7 @@ def get_users():
     user_response.status_code = 200
     return user_response
 
-@average_persons.route('/average_persons/<userID>', methods=['GET'])
+@average_persons.route('/<userID>', methods=['GET'])
 def get_user(userID):
     current_app.logger.info('GET /average_persons/<userID> route')
 
@@ -36,7 +36,7 @@ def get_user(userID):
     return userData
 
 
-@average_persons.route('/average_persons/<userID>', methods = ['PUT'])
+@average_persons.route('/<userID>', methods = ['PUT'])
 def update_user():
     current_app.logger.info('PUT /average_persons/<userID> route')
     user_info = request.json
@@ -53,7 +53,7 @@ def update_user():
     db.get_db().commit()
     return 'user updated!'
 
-@average_persons.route('/average_persons/<userID>/portfolio', methods=['GET'])
+@average_persons.route('/<userID>/portfolio', methods=['GET'])
 def get_user_portfolio(userID):
     current_app.logger.info('GET /average_persons/<userID>/portfolio route')
 
@@ -68,7 +68,7 @@ def get_user_portfolio(userID):
 
     return r
 
-@average_persons.route('/average_persons/<userID>', methods=['DELETE'])
+@average_persons.route('/<userID>', methods=['DELETE'])
 def delete_user(userID):
     current_app.logger.info('Delete /average_persons/<userID> route')
 

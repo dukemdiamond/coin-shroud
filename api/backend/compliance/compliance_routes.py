@@ -7,7 +7,7 @@ from backend.db_connection import db
 
 compliance = Blueprint('compliance', __name__)
 
-@compliance.route('/compliance', methods=['GET'])
+@compliance.route('/', methods=['GET'])
 def get_compliance_reports():
     current_app.logger.info('GET /compliance route')
 
@@ -21,7 +21,7 @@ def get_compliance_reports():
     response.status_code = 200
     return response
 
-@compliance.route('/compliance/<projectID>', methods=['GET'])
+@compliance.route('/<projectID>', methods=['GET'])
 def get_compliance_report(projectID):
     current_app.logger.info('GET /compliance/{projectID} route')
 
@@ -35,7 +35,7 @@ def get_compliance_report(projectID):
     response.status_code = 200
     return response
 
-@compliance.route('/compliance/{projectID}', methods=['PUT'])
+@compliance.route('/<projectID>', methods=['PUT'])
 def update_compliance_report(projectID):
     current_app.logger.info('PUT /compliance/ route')
 

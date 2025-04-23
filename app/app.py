@@ -1,7 +1,5 @@
 import streamlit as st
-import requests
-import json
-import pandas as pd
+
 from pages import investor, developer, governing_body, average_person
 
 # Set page configuration
@@ -10,9 +8,6 @@ st.set_page_config(
     page_icon="💰",
     layout="wide"
 )
-
-# Define API base URL
-API_URL = "http://localhost:8502"  # Adjust this to your Flask API's address
 
 
 def main():
@@ -30,7 +25,7 @@ def main():
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 16px;
+        font-size: 16px;    
         margin: 10px 2px;
         cursor: pointer;
         border-radius: 8px;
@@ -79,30 +74,3 @@ elif st.session_state.user_persona == "average_person":
 else:
     main()
 
-
-# Helper function for making API requests (can be used by all pages)
-def api_request(endpoint, method="GET", data=None):
-    url = f"{API_URL}{endpoint}"
-
-    headers = {
-        "Content-Type": "application/json"
-    }
-
-    try:
-        if method == "GET":
-            response = requests.get(url, headers=headers)
-        elif method == "POST":
-            response = requests.post(url, headers=headers, data=json.dumps(data))
-        elif method == "PUT":
-            response = requests.put(url, headers=headers, data=json.dumps(data))
-        elif method == "DELETE":
-            response = requests.delete(url, headers=headers)
-
-        if response.status_code in [200, 201]:
-            return response.json()
-        else:
-            st.error(f"API Error: {response.status_code} - {response.text}")
-            return None
-    except Exception as e:
-        st.error(f"Connection Error: {str(e)}")
-        return None

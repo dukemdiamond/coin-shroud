@@ -34,11 +34,11 @@ else:
     st.info("No withdrawal data found.")
 
 wallet_data = api_request("/wallet")
-wallet_balance = wallet_data['balance'] if wallet_data else 0
+wallet_balance = wallet_data[0].get('balance', 0) if wallet_data else 0
 
 st.subheader("Request a withdrawal")
 with st.form("withdrawal_form"):
-    amount = st.number_input("Enter withdrawal amount", minvalue=0.1, format = "%.2f")
+    amount = st.number_input("Enter withdrawal amount", min_value=0.1, format = "%.2f")
     submitted = st.form_submit_button("Submit")
     if submitted:
         if amount > wallet_balance:

@@ -8,13 +8,13 @@ from modules.nav import api_request
 SideBarLinks()
 
 # set the header of the page
-st.header('Compliance')
+st.header('Compliance Rules')
 
 st.write(f"### Welcome!")
 user_type = st.session_state.get('role', 'developer') # default dev
 
 curr_compliance_rules = api_request("/compliance_rules")
-if curr_compliance_rules:
+if curr_compliance_rules is not None:
     st.subheader("View Current Compliance Rules")
     df = pd.DataFrame(curr_compliance_rules)
     st.dataframe(df)

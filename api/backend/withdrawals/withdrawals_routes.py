@@ -7,7 +7,7 @@ from backend.db_connection import db
 
 withdrawals = Blueprint('withdrawals', __name__)
 
-@withdrawals.route('/withdrawals', methods=['GET'])
+@withdrawals.route('/', methods=['GET'])
 def get_withdrawals():
     current_app.logger.info('GET /withdrawals route')
 
@@ -21,7 +21,7 @@ def get_withdrawals():
 
     return r
 
-@withdrawals.route('/withdrawals/average_person/<userID>', methods=['GET'])
+@withdrawals.route('/average_person/<userID>', methods=['GET'])
 def get_withdrawals_for_user(userID):
     current_app.logger.info('GET /withdrawals/avg/id route')
 
@@ -35,7 +35,7 @@ def get_withdrawals_for_user(userID):
 
     return r
 
-@withdrawals.route('/withdrawals/investor/<investorID>', methods=['GET'])
+@withdrawals.route('/investor/<investorID>', methods=['GET'])
 def get_withdrawals_for_investor(investorID):
     current_app.logger.info('GET /withdrawals/investor/id route')
 
@@ -51,7 +51,7 @@ def get_withdrawals_for_investor(investorID):
 
 
 
-@withdrawals.route('/withdrawals/<withdrawalID>', methods=['GET'])
+@withdrawals.route('/<withdrawalID>', methods=['GET'])
 def get_withdrawal(withdrawalID):
     current_app.logger.info('GET /withdrawals/<withdrawalID> route')
 
@@ -64,7 +64,7 @@ def get_withdrawal(withdrawalID):
 
     return r
 
-@withdrawals.route('/withdrawals', methods=['POST'])
+@withdrawals.route('/', methods=['POST'])
 def create_withdrawal():
     current_app.logger.info('POST /withdrawals route')
 

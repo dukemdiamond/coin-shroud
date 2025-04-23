@@ -7,11 +7,11 @@ from backend.db_connection import db
 
 projects = Blueprint('projects', __name__)
 
-@projects.route('/projects', methods=['GET'])
+@projects.route('/', methods=['GET'])
 def get_projects():
 
     cursor = db.get_db().cursor()
-    cursor.execute('''SELECT projectID, name, status, quantity FROM Projects''')
+    cursor.execute('''SELECT projectID, name, status, quantity, price FROM Projects''')
     data = cursor.fetchall()
 
     r = make_response(data)
@@ -19,11 +19,11 @@ def get_projects():
 
     return r
 
-@projects.route('/projects/<projectID>', methods=['GET'])
+@projects.route('/<projectID>', methods=['GET'])
 def get_project(projectID):
 
     cursor = db.get_db().cursor()
-    cursor.execute('SELECT projectID, name, status, quantity FROM Projects WHERE projectID = %s', projectID)
+    cursor.execute('SELECT projectID, name, status, quantity, price FROM Projects WHERE projectID = %s', projectID)
     data = cursor.fetchall()
 
     r = make_response(data)
@@ -31,7 +31,7 @@ def get_project(projectID):
 
     return r
 
-@projects.route('/projects', methods=['POST'])
+@projects.route('', methods=['POST'])
 def create_project():
 
     try:
@@ -62,7 +62,7 @@ def create_project():
 
 
 
-@projects.route('/projects/<projectID>', methods=['PUT'])
+@projects.route('/<projectID>', methods=['PUT'])
 def update_project():
     current_app.logger.info('PUT /projects/<projectID> route')
 
@@ -82,7 +82,7 @@ def update_project():
 
     return 'Project Updated!'
 
-@projects.route('/projects/<projectID>', methods=['DELETE'])
+@projects.route('/<projectID>', methods=['DELETE'])
 def delete_project(projectID):
     current_app.logger.info('DELETE /projects/<projectID> route')
 

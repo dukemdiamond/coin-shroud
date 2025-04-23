@@ -4,6 +4,7 @@
 
 import streamlit as st
 import requests
+import json
 
 #### ------------------------ General ------------------------
 def HomeNav():
@@ -46,7 +47,7 @@ def AveragePersonNav():
 ## Governing Body
 def GoverningBodyNav():
     st.sidebar.page_link(
-        "pages/11_Governing_Body.py", label="Governing Body Home", icon="👨‍⚖️"
+        "pages/11_Governing_Body_Home.py", label="Governing Body Home", icon="👨‍⚖️"
     )
 
 def ComplianceNav():
@@ -81,7 +82,7 @@ def SideBarLinks(show_home=False):
     """
 
     # add a logo to the sidebar always
-    st.sidebar.image("assets/logo.png", width=150)
+    st.sidebar.image("assets/csd.png", width=3000)
 
     # If there is no logged in user, redirect to the Home (Landing) page
     if "authenticated" not in st.session_state:
@@ -136,7 +137,7 @@ def SideBarLinks(show_home=False):
             del st.session_state["authenticated"]
             st.switch_page("Home.py")
 
-API_URL = "http://localhost:8502"
+API_URL = "http://web-api:4000"
 # Function to make API requests
 def api_request(endpoint, method="GET", data=None):
     url = f"{API_URL}{endpoint}"

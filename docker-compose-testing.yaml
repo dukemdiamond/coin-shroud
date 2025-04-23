@@ -7,6 +7,8 @@ services:
     volumes: ["./app/src:/appcode"]
     ports:
       - 8502:8501
+    networks:
+      - app-network
 
   api-test:
     build: ./api
@@ -15,14 +17,29 @@ services:
     volumes: ["./api:/apicode"]
     ports:
       - 4001:4000
-
-  db-test:
     env_file:
       - ./api/.env
-    image: mysql:9
+    environment:
+      - coinshroud=coinshroud_platform
+    networks:
+      - app-network
+    depends_on:
+      - db-test
+
+  db-test:
+    image: mysql:8
     container_name: mysql-db-test
     hostname: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=dukemdiamond
+      - MYSQL_DATABASE=coinshroud_platform
     volumes:
       - ./database-files:/docker-entrypoint-initdb.d/:ro
     ports:
       - 3201:3306
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
