@@ -58,12 +58,13 @@ if wallet_data:
             st.subheader("Recent Transactions")
 
             # Get transaction data
-            transactions = api_request("/transactions")
 
             # Filter transactions for this user
             if user_type == 'investor':
+                transactions = api_request(f"/transactions/investor/{user_id}")
                 user_transactions = [t for t in transactions if t.get('investorID') == user_id] if transactions else []
             else:  # average person
+                transactions = api_request(f"/transactions/average_person/{user_id}")
                 user_transactions = [t for t in transactions if t.get('userID') == user_id] if transactions else []
 
             if user_transactions:

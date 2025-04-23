@@ -47,4 +47,3 @@ if projectID:
             st.metric("Quantity", specific_project_data.get('quantity'))
     else:
         st.error(f"No project found with ID: {projectID}")
-

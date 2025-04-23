@@ -21,6 +21,36 @@ def get_transactions():
     response.status_code = 200
     return response
 
+@transactions.route('/transactions/average_person/<user_id>', methods=['GET'])
+def get_transactions_by_user(user_id):
+    current_app.logger.info('GET /transactions/average_person/<user_id> route')
+
+    cursor = db.get_db().cursor()
+    query = '''SELECT transactionID, userID, projectID, buy, sell 
+               FROM Transactions 
+               WHERE userID = %s'''
+    cursor.execute(query, (user_id,))
+    transaction_data = cursor.fetchall()
+
+    response = make_response(jsonify(transaction_data))
+    response.status_code = 200
+    return response
+
+@transactions.route('/transactions/investor/<investorID>', methods=['GET'])
+def get_transactions_by_investor(investorID):
+    current_app.logger.info(f'GET /transactions/user/<investorID>> route')
+
+    cursor = db.get_db().cursor()
+    query = '''SELECT transactionID, investorID, projectID, buy, sell 
+               FROM Transactions 
+               WHERE investorID = %s'''
+    cursor.execute(query, (investorID,))
+    transaction_data = cursor.fetchall()
+
+    response = make_response(jsonify(transaction_data))
+    response.status_code = 200
+    return response
+
 @transactions.route('/transactions', methods=['POST'])
 def create_transaction():
     # Log
@@ -43,7 +73,7 @@ def create_transaction():
     buy_value = 1 if 'buy' in data and data['buy'] else 0
     sell_value = 1 if 'sell' in data and data['sell'] else 0
     user_id = data.get('user_ID', None)
-    investor_id = data.get('investor_ID', None)
+    investor_id = data.get('investorID', None)
 
     try:
         cursor = db.get_db().cursor()
@@ -66,13 +96,13 @@ def create_transaction():
         return jsonify({'error': 'Transaction not successful'})
 
 
-@transactions.route('/transactions/{transactionID}', methods=['GET'])
+@transactions.route('/transactions/<transactionID>', methods=['GET'])
 def get_transaction(transaction_id):
     # Log
-    current_app.logger.info('GET /transactions/{id} route')
+    current_app.logger.info('GET /transactions/<id> route')
     try:
         cursor = db.get_db().cursor()
-        cursor.execute('SELECT buy, sell, userID, investorID, projectID FROM Transactions WHERE transactionID = %s' (transaction_id))
+        cursor.execute('SELECT buy, sell, userID, investorID, projectID FROM Transactions WHERE transactionID = %s', (transaction_id))
 
         data = cursor.fetchall()
 
