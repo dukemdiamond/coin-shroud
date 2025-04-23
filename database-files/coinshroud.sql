@@ -132,7 +132,7 @@ CREATE TABLE AvgInvests(
 );
 
 
-NSERT INTO compliance_rules (compliance_rules) VALUES
+INSERT INTO compliance_rules (compliance_rules) VALUES
     ('All cryptocurrency projects must implement KYC (Know Your Customer) verification for users.'),
     ('Smart contracts must undergo third-party security audits before deployment.'),
     ('Projects must maintain a minimum of 30% reserve funds in cold storage.'),

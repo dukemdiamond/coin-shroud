@@ -40,19 +40,21 @@ def update_compliance_report(projectID):
     current_app.logger.info('PUT /compliance/ route')
 
     compliance_info = request.json
-    comp_reportID = compliance_info['reportID']
     comp_isCompliant = compliance_info['isCompliant']
     comp_reportDate = compliance_info['reportDate']
     comp_regulatorID = compliance_info['regulatorID']
 
-    query = 'UPDATE Compliance_Report SET reportID = %s, isCompliant = %s, reportDate = %s, regulatorID = %s, projectID = %s WHERE projectID = %s'
-    data = (comp_reportID, comp_isCompliant, comp_reportDate, comp_regulatorID, projectID, projectID)
-
-    cursor = db.get_db().cursor()
-    r = cursor.execute(query, data)
-    db.get_db().commit()
-    return 'compliance report updated'
-
+    query = 'UPDATE Compliance_Report SET isCompliant = %s, reportDate = %s, regulatorID = %sWHERE projectID = %s'
+    data = (comp_isCompliant, comp_reportDate, comp_regulatorID, projectID)
+    try:
+        cursor = db.get_db().cursor()
+        r = cursor.execute(query, data)
+        db.get_db().commit()
+        return jsonify({'message': f'Compliance report for project {projectID} updated'}), 200
+    except Exception as e:
+        db.get_db().rollback()
+        current_app.logger.error(f'Failed to update compliance report: {str(e)}')
+        return jsonify({'error': f'Failed to update compliance report: {str(e)}'}), 500
 
 
 
