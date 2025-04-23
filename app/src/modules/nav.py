@@ -31,8 +31,10 @@ def ProjectsNav():
 
 
 def TransactionsNav():
-    st.sidebar.page_link("pages/05_Education.py", label="Education", icon="📕")
+    st.sidebar.page_link("pages/04_Transactions.py", label="Transactions", icon="💎")
 
+def EducationNav():
+    st.sidebar.page_link("pages/05_Education.py", label="Education", icon="📕")
 
 def WithdrawalsNav():
     st.sidebar.page_link(
@@ -109,6 +111,7 @@ def SideBarLinks(show_home=False):
             TransactionsNav()
             WithdrawalsNav()
             PortfolioNav()
+            EducationNav()
 
         # If the user role is avg person, show the Api Testing page
         if st.session_state["role"] == "average_person":
@@ -118,6 +121,7 @@ def SideBarLinks(show_home=False):
             TransactionsNav()
             WithdrawalsNav()
             PortfolioNav()
+            EducationNav()
 
         # If the user is an gov body, give them access to the gov body pages
         if st.session_state["role"] == "governing_body":

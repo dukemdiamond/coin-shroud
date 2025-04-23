@@ -50,8 +50,14 @@ with st.form("withdrawal_form"):
                 "amount": amount,
                 "status": "pending",
                 "date": today_str,
-                f"{'investorID' if user_type == 'investor' else 'userID'}": user_id
             }
+
+            # Investor vs. Average Person Handling
+            if user_type == 'investor':
+                payload["investorID"] = user_id
+            else:
+                payload["userID"] = user_id
+
             response = api_request("/withdrawals", method="POST", data=payload)
 
             if "error" in response:

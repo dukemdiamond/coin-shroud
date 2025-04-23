@@ -30,7 +30,7 @@ def update_compliance_rules(c_id):
 
     r = cursor.execute('UPDATE compliance_rules SET compliance_rules = %s WHERE c_id = %s', (rules, c_id))
     db.get_db().commit()
-    return 'compliance_rules updated!'
+    return jsonify({"message": "Compliance rules updated successfully"}), 200
 
 
 
