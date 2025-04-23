@@ -21,6 +21,35 @@ def get_withdrawals():
 
     return r
 
+@withdrawals.route('/withdrawals/average_person/<userID>', methods=['GET'])
+def get_withdrawals_for_user(userID):
+    current_app.logger.info('GET /withdrawals/avg/id route')
+
+    cursor = db.get_db().cursor()
+
+    cursor.execute(f'SELECT withdrawalID, amount, status, date, userID FROM Withdrawals WHERE userID = %s', userID)
+
+    data = cursor.fetchall()
+    r = make_response(jsonify(data))
+    r.status_code = 200
+
+    return r
+
+@withdrawals.route('/withdrawals/investor/<investorID>', methods=['GET'])
+def get_withdrawals_for_investor(investorID):
+    current_app.logger.info('GET /withdrawals/investor/id route')
+
+    cursor = db.get_db().cursor()
+
+    cursor.execute(f'SELECT withdrawalID, amount, status, date, investorID FROM Withdrawals WHERE investorID = %s', investorID)
+
+    data = cursor.fetchall()
+    r = make_response(jsonify(data))
+    r.status_code = 200
+
+    return r
+
+
 
 @withdrawals.route('/withdrawals/<withdrawalID>', methods=['GET'])
 def get_withdrawal(withdrawalID):
