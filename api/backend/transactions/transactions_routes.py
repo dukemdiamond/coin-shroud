@@ -81,7 +81,7 @@ def create_transaction():
         INSERT INTO Transactions (buy, sell, userID, investorID, projectID)
         VALUES (%s, %s, %s, %s, %s) ''', (buy_value, sell_value, user_id, investor_id, data['projectID']))
 
-        db.get_db.commit()
+        db.get_db().commit()
 
         transactionID = cursor.lastrowid
 

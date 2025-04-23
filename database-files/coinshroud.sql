@@ -351,7 +351,7 @@ INSERT INTO Wallet (balance, investorID, userID) VALUES
 -- Insert Portfolio
 INSERT INTO Portfolio (value, holdings, investorID, userID) VALUES
     (8166.87, 'BTC,ETH,USDT', 1, NULL),
-    (4444.15, 'BTC,SOL,ADA', NULL, 2),
+    (4444.15, 'BTC,SOL,ADA', NULL, 1),
     (14216.96, 'BTC,ETH,USDT', 3, NULL),
     (20452.84, 'BTC,SOL,ADA', NULL, 4),
     (2315.37, 'ETH,DOGE', 5, NULL),
