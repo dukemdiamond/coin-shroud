@@ -87,12 +87,12 @@ def delete_project(projectID):
 
     try:
         cursor = db.get_db.cursor()
-        cursor.execute('SELECT projectID FROM Projects WHERE projectID = %s', (projectID))
+        cursor.execute('SELECT projectID FROM Projects WHERE projectID = %s', (projectID,))
 
         if not cursor.fetchall():
             return jsonify({'Error': 'Could not find project'}), 404
 
-        cursor.execute('DELETE FROM Projects WHERE projectID = %s', (projectID))
+        cursor.execute('DELETE FROM Projects WHERE projectID = %s', (projectID,))
 
         db.get_db().commit()
         return jsonify({'message': f'Project {projectID} successfully deleted'}), 200

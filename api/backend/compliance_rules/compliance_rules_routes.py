@@ -28,7 +28,7 @@ def update_compliance_rules(c_id):
     info = request.json
     rules = info['compliance_rules']
 
-    r = cursor.execute('UPDATE Compliance_Rules SET compliance_rules = %s WHERE c_id = %s', (rules, c_id))
+    r = cursor.execute('UPDATE compliance_rules SET compliance_rules = %s WHERE c_id = %s', (rules, c_id))
     db.get_db().commit()
     return 'compliance_rules updated!'
 
