@@ -37,9 +37,20 @@ with st.form("report_form"):
             st.error(f"No compliance report for {projectID}")
 if user_type == 'governing_body':
     st.subheader("Update Compliance Report for Specific projectID")
+
+    # dropdown logic
+    projects_data = api_request("/projects")
+    if not projects_data or not isinstance(projects_data, list):
+        st.error("Failed to fetch project list.")
+        st.stop()
+
+
+    project_options = {f"{proj['projectID']} - {proj.get('name', 'Unnamed')}": proj['projectID'] for proj in
+                       projects_data}
+    selected_project_label = st.selectbox("Select a project to update:", list(project_options.keys()))
+    project_id = project_options[selected_project_label]
+
     with st.form("update_form"):
-        project_id = st.text_input("Project ID (to update)", max_chars=36)
-        report_id = st.text_input("Report ID", max_chars=36)
         is_compliant = st.selectbox("Is Compliant?", [True, False])
         report_date = st.date_input("Report Date")  # returns a datetime.date
         regulator_id = st.text_input("Regulator ID", max_chars=36)
@@ -50,7 +61,6 @@ if user_type == 'governing_body':
             report_date_str = report_date.strftime('%Y-%m-%d')
 
             payload = {
-                "reportID": report_id,
                 "isCompliant": is_compliant,
                 "reportDate": report_date_str,
                 "regulatorID": regulator_id
