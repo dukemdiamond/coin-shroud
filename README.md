@@ -1,6 +1,6 @@
 # CoinShroud – Cryptocurrency Investment Platform
 
-![CoinShroudImage](coinshroud.pdf)
+![COINSHROUDIMAGE](coinshroud.jpg)
 
 CoinShroud is a crypto investment analytics and tracking app. It supports multiple user roles including
 investors, average users, developers, and regulatory bodies. Users can view live data, track their holdings, submit
