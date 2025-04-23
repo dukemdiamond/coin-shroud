@@ -47,7 +47,7 @@ def create_project():
         cursor.execute('INSERT INTO Projects (name, status, price, quantity)'
                  'VALUES (%s, %s, %s, %s)', (name, status, price, quantity))
 
-        db.get_db.commit()
+        db.get_db().commit()
 
         return 'Project created successfully!'
 

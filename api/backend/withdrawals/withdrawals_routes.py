@@ -84,7 +84,7 @@ def create_withdrawal():
         cursor.execute('''INSERT INTO Withdrawals (amount, status, date, investorID, userID)
                        VALUES(%s, %s, %s, %s, %s)''', (amount, status, date, investor_id, user_id))
 
-        db.get_db.commit()
+        db.get_db().commit()
 
         return jsonify('Withdrawal successful')
 

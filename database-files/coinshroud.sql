@@ -308,7 +308,7 @@ INSERT INTO Developers (FName, LName, email) VALUES
 -- Using the auto-increment for walletID and referencing numeric investorID and userID
 INSERT INTO Wallet (balance, investorID, userID) VALUES
     (7977.31, 1, NULL),
-    (3685.2, NULL, 2),
+    (3685.2, NULL, 1),
     (1939.33, 3, NULL),
     (5703.63, NULL, 4),
     (1692.17, 5, NULL),
