@@ -111,7 +111,7 @@ def SideBarLinks(show_home=False):
             TransactionsNav()
             WithdrawalsNav()
             PortfolioNav()
-            EducationNav()
+
 
         # If the user role is avg person, show the Api Testing page
         if st.session_state["role"] == "average_person":

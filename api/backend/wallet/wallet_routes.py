@@ -21,6 +21,23 @@ def get_wallet():
 
     return response
 
+@wallet.route('/<wallet_id>', methods=['PUT'])
+def update_wallet(wallet_id):
+    data = request.json
+    new_balance = data.get("balance")
+
+    try:
+        cursor = db.get_db().cursor()
+        cursor.execute(
+            '''UPDATE Wallet SET balance = %s WHERE walletID = %s''',
+            (new_balance, wallet_id)
+        )
+        db.get_db().commit()
+        return jsonify({'message': 'Wallet updated'}), 200
+    except Exception as e:
+        db.get_db().rollback()
+        return jsonify({'error': f'Failed to update wallet: {str(e)}'}), 500
+
 @wallet.route('/', methods=['POST'])
 def create_wallet():
     try:

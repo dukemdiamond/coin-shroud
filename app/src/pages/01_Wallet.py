@@ -49,8 +49,20 @@ if wallet_data:
 
                 if submitted:
 
-                    st.success(f"Successfully added ${amount:.2f} to your wallet!")
-                    st.rerun()
+                    new_balance = float(user_wallet.get('balance', 0)) + amount
+                    wallet_id = user_wallet.get('walletID')
+
+                    update_data = {
+                        "balance": new_balance
+                    }
+
+                    result = api_request(f"/wallet/{wallet_id}", method="PUT", data=update_data)
+
+                    if result and not isinstance(result, dict) or not result.get("error"):
+                        st.success(f"Successfully added ${amount:.2f} to your wallet!")
+                        st.rerun()
+                    else:
+                        st.error("Failed to update wallet balance.")
 
         # Display recent transactions in the second column
         with col2:
@@ -61,10 +73,12 @@ if wallet_data:
             # Filter transactions for this user
             if user_type == 'investor':
                 transactions = api_request(f"/transactions/investor/{user_id}")
-                user_transactions = [t for t in transactions if t.get('investorID') == user_id] if transactions else []
+                user_transactions = [t for t in transactions if
+                                     str(t.get('investorID')) == str(user_id)] if transactions else []
             else:  # average person
                 transactions = api_request(f"/transactions/average_person/{user_id}")
-                user_transactions = [t for t in transactions if t.get('userID') == user_id] if transactions else []
+                user_transactions = [t for t in transactions if
+                                     str(t.get('userID')) == str(user_id)] if transactions else []
 
             if user_transactions:
                 # Create a more readable transactions display

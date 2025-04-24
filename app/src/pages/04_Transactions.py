@@ -36,13 +36,23 @@ if all_transactions:
 
 st.subheader("Create a transaction")
 with st.form("transaction_form"):
-    project_id = st.text_input("Project ID")
+    projects_data = api_request("/projects")
+    if not projects_data or not isinstance(projects_data, list):
+        st.error("Failed to fetch project list.")
+        st.stop()
+
+    project_options = {f"{proj['projectID']} - {proj.get('name', 'Unnamed')}": proj['projectID'] for proj in
+                       projects_data}
+    selected_project_label = st.selectbox("Project", list(project_options.keys()))
+    project_id = project_options[selected_project_label]
+
+
     transaction_type = st.selectbox("Transaction Type", ["Buy", "Sell"])
 
     submitted = st.form_submit_button("Submit Transaction")
     if submitted:
         payload = {
-            "projectID": project_id,
+                "projectID": project_id,
         }
         if user_type == 'investor':
             payload["investorID"] = user_id

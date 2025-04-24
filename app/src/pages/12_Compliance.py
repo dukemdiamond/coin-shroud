@@ -25,16 +25,26 @@ if curr_compliance_reports:
 
 st.subheader("View Compliance Report for Specific projectID")
 with st.form("report_form"):
-    projectID = st.number_input("Enter projectID")
+    projects_data = api_request("/projects")
+    if not projects_data or not isinstance(projects_data, list):
+        st.error("Failed to fetch project list.")
+        st.stop()
+
+    project_options = {f"{proj['projectID']} - {proj.get('name', 'Unnamed')}": proj['projectID'] for proj in
+                       projects_data}
+    selected_project_label = st.selectbox("Select a project to update:", list(project_options.keys()))
+    project_id = project_options[selected_project_label]
+
     submitted = st.form_submit_button("Submit")
     if submitted:
-        specific_compliance_report = api_request(f"/compliance/{projectID}")
+        specific_compliance_report = api_request(f"/compliance/{project_id}")
         if specific_compliance_report:
-            st.subheader(f"Specific Compliance Report for project {projectID}")
+            st.subheader(f"Specific Compliance Report for project {project_id}")
             df = pd.DataFrame(specific_compliance_report)
             st.dataframe(df)
         else:
-            st.error(f"No compliance report for {projectID}")
+            st.error(f"No compliance report for {project_id}")
+
 if user_type == 'governing_body':
     st.subheader("Update Compliance Report for Specific projectID")
 

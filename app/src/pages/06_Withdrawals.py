@@ -34,8 +34,12 @@ if withdrawals_data:
 else:
     st.info("No withdrawal data found.")
 
-wallet_data = api_request("/wallet")
-wallet_balance = wallet_data[0].get('balance', 0) if wallet_data else 0
+
+def get_wallet_balance():
+    wallet_data = api_request("/wallet")
+    return wallet_data[0].get('balance', 0) if wallet_data else 0
+
+wallet_balance = get_wallet_balance()
 
 st.subheader("Request a withdrawal")
 with st.form("withdrawal_form"):
@@ -64,6 +68,13 @@ with st.form("withdrawal_form"):
                 st.error("Withdrawal request failed.")
             else:
                 st.success("Withdrawal request submitted successfully.")
+
+                # refresh balance after withdrawing
+                wallet_balance = get_wallet_balance()
                 st.json(response)
+
+if st.button("Refresh Withdrawals"):
+    st.rerun()
+
 
 
