@@ -32,7 +32,7 @@ with st.form("report_form"):
 
     project_options = {f"{proj['projectID']} - {proj.get('name', 'Unnamed')}": proj['projectID'] for proj in
                        projects_data}
-    selected_project_label = st.selectbox("Select a project to update:", list(project_options.keys()))
+    selected_project_label = st.selectbox("Select a project to view:", list(project_options.keys()))
     project_id = project_options[selected_project_label]
 
     submitted = st.form_submit_button("Submit")
