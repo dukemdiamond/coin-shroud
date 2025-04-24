@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/57710f35-da57-423c-9ce6-61deaef6c179)# CoinShroud – Cryptocurrency Investment App
+# CoinShroud – Cryptocurrency Investment App
 
 ![COINSHROUDIMAGE](coinshroud.jpg)
 
