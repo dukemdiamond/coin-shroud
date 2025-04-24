@@ -14,7 +14,7 @@ compliance reports, and more.
 
 ---
 
-Demo:  [Demo Link]([url](https://www.youtube.com/watch?v=O4YOdDGAqOo))
+[🎥 Demo Video](https://www.youtube.com/watch?v=O4YOdDGAqOo)
 
 ## How to Build and Start the Project
 
