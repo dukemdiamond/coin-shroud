@@ -1,4 +1,4 @@
-# CoinShroud – Cryptocurrency Investment App
+![image](https://github.com/user-attachments/assets/57710f35-da57-423c-9ce6-61deaef6c179)# CoinShroud – Cryptocurrency Investment App
 
 ![COINSHROUDIMAGE](coinshroud.jpg)
 
@@ -32,7 +32,7 @@ Make sure you have the following installed:
 
 ### 2. Clone the Repository
 
-Use the following commands to clone the repository and navigate into the project directory:
+Use the following commands to clone the repository into your favorite Python IDE and navigate into the project directory:
 
 - `git clone` - git@github.com:dukemdiamond/coin-shroud.git
 
@@ -49,3 +49,10 @@ You can create it using your text editor or with this terminal command:
 
 Add environment variables like database credentials or secret keys inside this file as needed.
 Do not commit the .env file to version control—it contains sensitive information.
+
+### 4. Build and Run the Containers
+- In your terminal, run `docker-compose up --build`
+
+### 5. View the app 
+- Open your browser and go to `http://localhost:8502`
+
